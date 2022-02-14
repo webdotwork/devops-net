@@ -103,3 +103,52 @@ grep 1 netology.md -c
 
 
 14. tee читает из стандартного ввода и записывает как в стандартный вывод
+
+Задание 3.3
+
+1. chdir("/tmp")
+
+2. stat("/home/tgit/.magic.mgc", 0x7ffc233a97a0) = -1 ENOENT (No such file or directory)
+   stat("/home/tgit/.magic", 0x7ffc233a97a0) = -1 ENOENT (No such file or directory)
+   openat(AT_FDCWD, "/etc/magic.mgc", O_RDONLY) = -1 ENOENT (No such file or directory)
+   stat("/etc/magic", {st_mode=S_IFREG|0644, st_size=111, ...}) = 0
+   openat(AT_FDCWD, "/etc/magic", O_RDONLY) = 3
+   fstat(3, {st_mode=S_IFREG|0644, st_size=111, ...}) = 0
+   read(3, "# Magic local data for file(1) c"..., 4096) = 111
+   read(3, "", 4096)
+3.
+ 
+4.зомби процессы не используют системные ресурсы
+
+5. root@vagrant:~# /usr/sbin/opensnoop-bpfcc
+   PID    COMM               FD ERR PATH
+   868    vminfo              4   0 /var/run/utmp
+   647    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services
+   647    dbus-daemon        19   0 /usr/share/dbus-1/system-services
+   647    dbus-daemon        -1   2 /lib/dbus-1/system-services
+   647    dbus-daemon        19   0 /var/lib/snapd/dbus-1/system-services/
+   657    irqbalance          6   0 /proc/interrupts
+   657    irqbalance          6   0 /proc/stat
+
+6. Part of the utsname information is also accessible  via  /proc/sys/ker‐
+       nel/{ostype, hostname, osrelease, version, domainname}.
+
+7. Команда test вычисляет код ответа на основе выражения, переданного через параметры командной строки.
+   Конструкции могут быть записаны в несколько строк, или в одну с использованием разделителя ";".
+   Последовательности команд. Возвращают код ответа последней выполненной команды.
+   ; - оператор безусловного последовательного выполнения команд
+   && оператор И. Правая часть не выполняется если левая выполнилась неуспешно
+   set - Change the value of shell attributes and positional parameters, or
+    display the names and values of shell variables. 
+   -e Exit immediately if a command exits with a non-zero status.
+   && совместно с set -e  команда выполниться т.к в случае успешного выполнения && оно равно 0 set -e не должен отработать
+
+8.  -e  Exit immediately if a command exits with a non-zero status.
+    -u  Treat unset variables as an error when substituting.
+    -x  Print commands and their arguments as they are executed.
+    -o pipefail состояние последней команды, которая должна выйти с ненулевым статусом, или ноль, если ни одна команда не вышла с ненулевым статусом.
+    Хорошо подходит для отладки bash скриптов
+9. S спящие процесы
+   R действующие процесы
+   I фоновые  процесы
+
