@@ -116,9 +116,10 @@ grep 1 netology.md -c
    fstat(3, {st_mode=S_IFREG|0644, st_size=111, ...}) = 0
    read(3, "# Magic local data for file(1) c"..., 4096) = 111
    read(3, "", 4096)
-3.т.к мы знаем pid запущенного процесса можно сделать kill по этому процессу
+
+3. т.к мы знаем pid запущенного процесса можно сделать kill по этому процессу
  
-4.зомби процессы не используют системные ресурсы
+4. зомби процессы не используют системные ресурсы
 
 5. root@vagrant:~# /usr/sbin/opensnoop-bpfcc
    PID    COMM               FD ERR PATH
