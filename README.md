@@ -9,3 +9,5 @@
 ФАЙЛЫ override.tf И override.tf.json
 ФАЙЛЫ СОДЕРЖУЩИЕ В ТЕЛЕ _override.tf И _override.tf.json
 ФАЙЛЫ КОНФИГУРАЦИИ КОМАНД ЛАЙН .terraformrc И terraform.rc
+
+https://itfb.com.ua/posle-udaleniya-fayla-mesto-ne-osvobodilos-linux/
