@@ -181,6 +181,27 @@ grep 1 netology.md -c
     sudo systemctl stop node_exporter
     sudo systemctl start node_exporter
     после ребута системы service запускается автоматом
+
+ 2. #node cpu seconds total counter
+    #node disk info
+    #node disk read time seconds counter
+    #node disk write time  seconds counter
+    #node filesystem avail bytes
+    #node memory MemTotal bytes
+    #node memory MemFree bytes
+    #node network receive bytes total
+    #node network transmit bytes total
+    
+ 3. ![image](https://user-images.githubusercontent.com/40559167/154756621-86673a8c-5192-4c53-84c7-bccafc8d2401.png)
+
+ 4. да можно грепнуть по virt*
+    dmesg |grep virt*
+    [    0.126100] Booting paravirtualized kernel on VMware hypervisor
+    [    1.763145]   with environment:
+    [    2.152630] VMware vmxnet3 virtual NIC driver - version 1.5.0.0-k-NAPI
+    [    6.149708] systemd[1]: Detected virtualization vmware.
+  
+ 5. 
     
     
 
