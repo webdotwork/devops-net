@@ -117,7 +117,9 @@ grep 1 netology.md -c
    read(3, "# Magic local data for file(1) c"..., 4096) = 111
    read(3, "", 4096)
 
-3. т.к мы знаем pid запущенного процесса можно сделать kill по этому процессу
+3. отправим файл в dev/null
+
+cat /dev/null > /proc/PID/fd/номер дискриптора
  
 4. зомби процессы не используют системные ресурсы
 
@@ -162,44 +164,73 @@ grep 1 netology.md -c
     sudo useradd node_exporter -s /sbin/nologin
     
     в каталоге /etc/systemd/system/node_exporter.service создал unit файл
+    
     [Unit]
+    
     Description=Node Exporter
+    
     [Service]
+    
     User=node_exporter
+    
     EnvironmentFile=/etc/sysconfig/node_exporter
+    
     ExecStart=/usr/sbin/node_exporter $OPTIONS
+    
     [Install]
+    
     WantedBy=multi-user.target
     
     создал файл с опциями
+    
     sudo mkdir -p /etc/sysconfig
+    
     sudo touch /etc/sysconfig/node_exporter
+    
     cat /etc/sysconfig/node_exporter
+    
     OPTIONS="--collector.textfile.directory /var/lib/node_exporter/textfile_collector" 
     
     после перзагрузки демона работают команды
+    
     sudo systemctl stop node_exporter
+    
     sudo systemctl start node_exporter
+    
     после ребута системы service запускается автоматом
 
  2. #node cpu seconds total counter
+ 
     #node disk info
+    
     #node disk read time seconds counter
+    
     #node disk write time  seconds counter
+    
     #node filesystem avail bytes
+    
     #node memory MemTotal bytes
+    
     #node memory MemFree bytes
+    
     #node network receive bytes total
+    
     #node network transmit bytes total
     
  3. ![image](https://user-images.githubusercontent.com/40559167/154756621-86673a8c-5192-4c53-84c7-bccafc8d2401.png)
 
  4. да можно грепнуть по virt*
+ 
     dmesg |grep virt*
+    
     [    0.126100] Booting paravirtualized kernel on VMware hypervisor
+    
     [    1.763145]   with environment:
+    
     [    2.152630] VMware vmxnet3 virtual NIC driver - version 1.5.0.0-k-NAPI
+    
     [    6.149708] systemd[1]: Detected virtualization vmware.
+    
   
  5. 
     
