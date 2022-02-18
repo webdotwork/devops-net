@@ -157,6 +157,32 @@ grep 1 netology.md -c
  
  1. После установки node_explorer на локал хосте машины в браузере открываются список метрик
     ![image](https://user-images.githubusercontent.com/40559167/154747441-71293b77-bde7-4c05-bbaa-b583ae54b170.png)
+    
+    создал пользователя 
+    sudo useradd node_exporter -s /sbin/nologin
+    
+    в каталоге /etc/systemd/system/node_exporter.service создал unit файл
+    [Unit]
+    Description=Node Exporter
+    [Service]
+    User=node_exporter
+    EnvironmentFile=/etc/sysconfig/node_exporter
+    ExecStart=/usr/sbin/node_exporter $OPTIONS
+    [Install]
+    WantedBy=multi-user.target
+    
+    создал файл с опциями
+    sudo mkdir -p /etc/sysconfig
+    sudo touch /etc/sysconfig/node_exporter
+    cat /etc/sysconfig/node_exporter
+    OPTIONS="--collector.textfile.directory /var/lib/node_exporter/textfile_collector" 
+    
+    после перзагрузки демона работают команды
+    sudo systemctl stop node_exporter
+    sudo systemctl start node_exporter
+    после ребута системы service запускается автоматом
+    
+    
 
 
 
