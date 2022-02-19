@@ -47,13 +47,3 @@ gvfs-fuse-daemon
 
 https://askubuntu.com/questions/401454/how-to-get-sudo-access-to-shares-mounted-by-gigolo/401509#401509
 
-Запустите любой долгоживущий процесс (не ls, который отработает мгновенно, а, например, sleep 1h) в отдельном неймспейсе процессов; покажите, что ваш процесс работает под PID 1 через nsenter. Для простоты работайте в данном задании под root (sudo -i). Под обычным пользователем требуются дополнительные опции (--map-root-user) и т.д.
-
-Ответ:
-root@vagrant:~# ps -e |grep sleep
-   2020 pts/2    00:00:00 sleep
-root@vagrant:~# nsenter --target 2020 --pid --mount
-root@vagrant:/# ps
-    PID TTY          TIME CMD
-      2 pts/0    00:00:00 bash
-     11 pts/0    00:00:00 ps
