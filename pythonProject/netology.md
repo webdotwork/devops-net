@@ -232,7 +232,17 @@ cat /dev/null > /proc/PID/fd/номер дискриптора
     [    6.149708] systemd[1]: Detected virtualization vmware.
     
   
- 5. 
+ 5. nr_open - жесткий лимит на открытые дескрипторы
+    file-nr - показывает выделенные дескрипторы
+    исполняемый file: /proc/sys/fs/nr_open
+    переменная окружения variable: fs.nr_open
+    ulimit -a мягкий лимит
+    ulimit -aH жесткий лимит
+    /sbin/sysctl fs.nr_open показывает что в ситсеме выделено fs.nr_open = 1048576
+    максимальный размер cat /proc/sys/fs/file-max
+    
+  6. 
+ 
     
     
 
