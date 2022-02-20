@@ -241,7 +241,8 @@ cat /dev/null > /proc/PID/fd/номер дискриптора
     /sbin/sysctl fs.nr_open показывает что в ситсеме выделено fs.nr_open = 1048576
     максимальный размер cat /proc/sys/fs/file-max
     
- 6.
+ 6. ![image](https://user-images.githubusercontent.com/40559167/154845101-a5580165-108e-4c14-894f-7b74b00a2ea1.png)
+
  
     
  7. :(){ :|: & };: - функция форк
