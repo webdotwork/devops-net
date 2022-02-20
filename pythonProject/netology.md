@@ -250,6 +250,58 @@ cat /dev/null > /proc/PID/fd/номер дискриптора
     В этой короткой строке определена функция командной оболочки, которая создает свои собственные копии. Процесс постоянно воспроизводит       себя, и его копии постоянно размножаться, быстро занимая все свое процессорное время и всю память. Это может привести к остановке           компьютера. Это, в большей степени, атака вида denial-of-service (отказ в обслуживании). 
     
    задать кол во процессов можно ulimit -u
+   
+   
+ Задание 3.4
+ 
+ 1. Sparse - это компьютерный программный инструмент, предназначенный для поиска возможных ошибок кодирования в ядре Linux
+    Разреженные – это специальные файлы, которые с большей эффективностью используют файловую систему, они не позволяют ФС занимать         свободное дисковое пространство носителя, когда разделы не заполнены. То есть, «пустое место» будет задействовано только при             необходимости. Пустая информация в виде нулей, будет хранится в блоке метаданных ФС. Поэтому, разреженные файлы изначально занимают     меньший объем носителя, чем их реальный объем.
+    
+    ![image](https://user-images.githubusercontent.com/40559167/154852449-8ce48efd-2003-4b6a-9e02-b5a47d192b74.png)
+
+    ls -l file Просмотр логического размера файла
+    du -c file Проверить, сколько блоков памяти фактически занимает файл.
+    od -c file Просмотр содержимого файлового хранилища
+    
+  2. 19:19@tgit:touch file
+     19:20@tgit:ln file FILE
+     19:20@tgit:ls -ilH
+total 88
+4980789 drwxr-xr-x 6 tgit tgit  4096 фев 19 02:15  Desktop
+4980793 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Documents
+4980790 drwxr-xr-x 2 tgit tgit  4096 янв 31 21:56  Downloads
+4984305 -rw-rw-r-- 2 tgit tgit     0 фев 20 19:20  file
+4984305 -rw-rw-r-- 2 tgit tgit     0 фев 20 19:20  FILE
+4980794 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Music
+4984234 -rwxrwxr-x 1 tgit tgit    48 фев 10 22:40  new
+4980795 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Pictures
+4980792 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Public
+4980791 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Templates
+4984236 -rw-rw-r-- 1 tgit tgit 42721 фев 17 23:22  trace1.log
+4980796 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Videos
+4984094 drwx------ 3 tgit tgit  4096 фев 18 21:16 'VirtualBox VMs'
+    19:20@tgit:chmod g-w FILE
+    19:22@tgit:ls -ilH
+total 88
+4980789 drwxr-xr-x 6 tgit tgit  4096 фев 19 02:15  Desktop
+4980793 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Documents
+4980790 drwxr-xr-x 2 tgit tgit  4096 янв 31 21:56  Downloads
+4984305 -rw-r--r-- 2 tgit tgit     0 фев 20 19:20  file
+4984305 -rw-r--r-- 2 tgit tgit     0 фев 20 19:20  FILE
+4980794 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Music
+4984234 -rwxrwxr-x 1 tgit tgit    48 фев 10 22:40  new
+4980795 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Pictures
+4980792 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Public
+4980791 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Templates
+4984236 -rw-rw-r-- 1 tgit tgit 42721 фев 17 23:22  trace1.log
+4980796 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Videos
+4984094 drwx------ 3 tgit tgit  4096 фев 18 21:16 'VirtualBox VMs'
+
+при смене прав у одного файла меняются права и у другого т.к ссылка жесткая
+
+![image](https://user-images.githubusercontent.com/40559167/154852865-f120319c-f78e-409f-99a5-6bf23c11ef0d.png)
+
+3.
 
 
 
