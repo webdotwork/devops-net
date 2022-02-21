@@ -264,44 +264,133 @@ cat /dev/null > /proc/PID/fd/номер дискриптора
     od -c file Просмотр содержимого файлового хранилища
     
   2. 19:19@tgit:touch file
+  
      19:20@tgit:ln file FILE
+     
      19:20@tgit:ls -ilH
+     
 total 88
 4980789 drwxr-xr-x 6 tgit tgit  4096 фев 19 02:15  Desktop
+
 4980793 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Documents
+
 4980790 drwxr-xr-x 2 tgit tgit  4096 янв 31 21:56  Downloads
+
 4984305 -rw-rw-r-- 2 tgit tgit     0 фев 20 19:20  file
+
 4984305 -rw-rw-r-- 2 tgit tgit     0 фев 20 19:20  FILE
+
 4980794 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Music
+
 4984234 -rwxrwxr-x 1 tgit tgit    48 фев 10 22:40  new
+
 4980795 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Pictures
+
 4980792 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Public
+
 4980791 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Templates
+
 4984236 -rw-rw-r-- 1 tgit tgit 42721 фев 17 23:22  trace1.log
+
 4980796 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Videos
+
+
 4984094 drwx------ 3 tgit tgit  4096 фев 18 21:16 'VirtualBox VMs'
+
     19:20@tgit:chmod g-w FILE
+    
     19:22@tgit:ls -ilH
+    
 total 88
 4980789 drwxr-xr-x 6 tgit tgit  4096 фев 19 02:15  Desktop
+
 4980793 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Documents
+
 4980790 drwxr-xr-x 2 tgit tgit  4096 янв 31 21:56  Downloads
+
 4984305 -rw-r--r-- 2 tgit tgit     0 фев 20 19:20  file
+
 4984305 -rw-r--r-- 2 tgit tgit     0 фев 20 19:20  FILE
+
 4980794 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Music
+
 4984234 -rwxrwxr-x 1 tgit tgit    48 фев 10 22:40  new
+
 4980795 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Pictures
+
 4980792 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Public
+
 4980791 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Templates
+
 4984236 -rw-rw-r-- 1 tgit tgit 42721 фев 17 23:22  trace1.log
+
 4980796 drwxr-xr-x 2 tgit tgit  4096 янв 17 20:40  Videos
+
 4984094 drwx------ 3 tgit tgit  4096 фев 18 21:16 'VirtualBox VMs'
 
 при смене прав у одного файла меняются права и у другого т.к ссылка жесткая
 
 ![image](https://user-images.githubusercontent.com/40559167/154852865-f120319c-f78e-409f-99a5-6bf23c11ef0d.png)
 
-3.
+3. vagrant@vagrant:~$ lsblk
+
+NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+
+loop0                       7:0    0 55.4M  1 loop /snap/core18/2128
+
+loop2                       7:2    0 70.3M  1 loop /snap/lxd/21029
+
+loop3                       7:3    0 43.6M  1 loop /snap/snapd/14978
+
+loop4                       7:4    0 55.5M  1 loop /snap/core18/2284
+
+loop5                       7:5    0 61.9M  1 loop /snap/core20/1328
+
+loop6                       7:6    0 67.2M  1 loop /snap/lxd/21835
+
+sda                         8:0    0   64G  0 disk
+├─sda1                      8:1    0    1M  0 part
+├─sda2                      8:2    0    1G  0 part /boot
+└─sda3                      8:3    0   63G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0    0 31.5G  0 lvm  /
+sdb                         8:16   0  2.5G  0 disk
+sdc                         8:32   0  2.5G  0 disk
+
+4. fdisk /dev/sdb
+   
+   Device     Boot   Start     End Sectors  Size Id Type
+   /dev/sdb1          2048 4196351 4194304    2G 83 Linux
+   /dev/sdb2       4196352 5242879 1046528  511M 83 Linux
+   
+ 5. sudo sfdisk -d /dev/sdb | sfdisk /dev/sdc
+   Device     Boot   Start     End Sectors  Size Id Type
+   /dev/sdc1          2048 4196351 4194304    2G 83 Linux
+   /dev/sdc2       4196352 5242879 1046528  511M 83 Linux
+   
+ 6. sudo mdadm --create --verbose /dev/md1 -l 1 -n 2 /dev/sd{b1,c1}
+    ![image](https://user-images.githubusercontent.com/40559167/155005929-39bec2c7-1db5-45a9-b689-7c12f3abc54f.png)
+
+ 7. sudo mdadm --create --verbose /dev/md0 -l 0 -n 2 /dev/sd{b2,c2}
+    ![image](https://user-images.githubusercontent.com/40559167/155006776-0a7ea8b0-9d35-44d2-9d17-0b3ae5162510.png)
+
+8. vagrant@vagrant:~$ sudo pvcreate /dev/md1
+
+  Physical volume "/dev/md1" successfully created.
+  
+  vagrant@vagrant:~$ sudo pvcreate /dev/md0
+  
+  Physical volume "/dev/md0" successfully created.
+  
+  vagrant@vagrant:~$ sudo pvscan
+  
+  PV /dev/sda3   VG ubuntu-vg       lvm2 [<63.00 GiB / <31.50 GiB free]
+  PV /dev/md0                       lvm2 [1018.00 MiB]
+  PV /dev/md1                       lvm2 [<2.00 GiB]
+  Total: 3 [<65.99 GiB] / in use: 1 [<63.00 GiB] / in no VG: 2 [2.99 GiB]
+  ![image](https://user-images.githubusercontent.com/40559167/155027396-c8f9ea27-7693-4ab9-aa76-39bfa4691c9a.png)
+
+ 9. 
+   
 
 
 
