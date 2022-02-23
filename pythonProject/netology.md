@@ -438,8 +438,52 @@ sdc                         8:32   0  2.5G  0 disk
 
 20. ![image](https://user-images.githubusercontent.com/40559167/155326968-e952ff29-ae5c-4f67-b21c-b4649194f08a.png)
 
+
+  Задание 3.5
+  
+  1. 301 Moved Permanently - перенаправляет нас на location: https://stackoverflow.com/questions
+    ![image](https://user-images.githubusercontent.com/40559167/155333767-62852782-e71e-4034-9071-000100de4760.png)  
+    
+  2.Request URL: https://stackoverflow.com/
+    Request Method: GET
+    Status Code: 200 
+    Remote Address: 151.101.193.69:443
+    Referrer Policy: no-referrer-when-downgrade
+    
+   ![image](https://user-images.githubusercontent.com/40559167/155341281-47070a30-3050-4967-81b1-2662abe57843.png)
+
+  
+  3. 2ip.ru
+     1**.2**.1**.1**
+  
+  4. netname:        RU-RUSPHONE
+  
+  
+  5. vagrant@vagrant:~$ traceroute -An 8.8.8.8
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  10.0.2.2 [*]  0.492 ms  0.417 ms  0.372 ms
+ 2  10.0.40.1 [*]  0.341 ms  0.308 ms  0.294 ms
+ 3  *.4*.*.1* [AS**5]  0.591 ms  0.607 ms  0.926 ms
+ 4  *7.3*.*.2* [AS*1]  0.852 ms  0.867 ms  0.723 ms
+ 5  *.4*.*.4* [AS*9]  1.995 ms  2.006 ms  1.680 ms
+ 6  * * *
+ 7  ------------  2.507 ms 108.170.250.33 [AS300]  3.273 ms 108.170.250.129 [AS2222]  2.606 ms
+ 8  1--------3 [AS00000]  2.581 ms 108.170.250.83 [AS0000]  33.960 ms 108.170.250.146 [AS122229]  2.301 ms
+ 9  1-----------4 [AS222226]  17.471 ms * *
+10  ---------4 [AS33388]  20.148 ms 2------0 [AS33339]  16.760 ms --------4 [AS33339]  28.452 ms
+11  2----------9 [AS33339]  28.373 ms 2------3 [AS15169]  29.274 ms 2-------3 [AS3333]  28.648 ms
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * 8.8.8.8 [AS----]  15.480 ms  14.208 ms
      
-
-
+  
+6.
 
 
