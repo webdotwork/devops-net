@@ -415,12 +415,29 @@ sdc                         8:32   0  2.5G  0 disk
 
      ![image](https://user-images.githubusercontent.com/40559167/155322164-3db0ef68-df4a-4343-8505-7c9b4cfe7a4a.png)
 
-13. ![image](https://user-images.githubusercontent.com/40559167/155322249-24b6ab1b-8b35-43cb-ac17-3f4c5b8f2713.png)
+ 
 
 
-14. gzip -t /tmp/new/test.gz | echo $?
+14. ![image](https://user-images.githubusercontent.com/40559167/155322249-24b6ab1b-8b35-43cb-ac17-3f4c5b8f2713.png)
+
+15. gzip -t /tmp/new/test.gz | echo $?
+    0
+   ![image](https://user-images.githubusercontent.com/40559167/155325145-289db541-f563-405d-8949-eb4cf86ae016.png)
+
+16. sudo pvmove -b /dev/md0 /dev/md1
+    ![image](https://user-images.githubusercontent.com/40559167/155325313-b0ab7d45-d70f-4f30-a915-9516ce92bf34.png)
+
     
+ 17.  sudo mdadm /dev/md1 --fail /dev/sdb1
     
+ 18. ![image](https://user-images.githubusercontent.com/40559167/155325950-556ab41c-2e08-4958-aba5-cc71f82b3c9b.png)
+
+
+19.     gzip -t /tmp/new/test.gz | echo $?
+        ![image](https://user-images.githubusercontent.com/40559167/155326188-04f1e8b0-cedd-4e46-b29f-af8baad1d775.png)
+
+20. ![image](https://user-images.githubusercontent.com/40559167/155326968-e952ff29-ae5c-4f67-b21c-b4649194f08a.png)
+
      
 
 
