@@ -389,8 +389,40 @@ sdc                         8:32   0  2.5G  0 disk
   Total: 3 [<65.99 GiB] / in use: 1 [<63.00 GiB] / in no VG: 2 [2.99 GiB]
   ![image](https://user-images.githubusercontent.com/40559167/155027396-c8f9ea27-7693-4ab9-aa76-39bfa4691c9a.png)
 
- 9. 
-   
+ 9.  sudo vgcreate volume-group /dev/md1 /dev/md0
+ 
+     sudo vgdisplay 
+     
+     sudo vgs
+     
+     ![image](https://user-images.githubusercontent.com/40559167/155319682-4a9001b8-9077-4ec7-b579-f10bce374c8f.png)
+
+10. sudo lvcreate -n LVRAID0 -L 100M volume-group /dev/md0
+    
+    sudo lvs
+    
+    ![image](https://user-images.githubusercontent.com/40559167/155320019-976671e2-00bc-4cf3-b907-a97ceabde80e.png)
+    
+ 11. mkfs.ext4 /dev/volume-group/LVRAID0
+ 
+     fsck -N /dev/volume-group/LVRAID0
+     
+     ![image](https://user-images.githubusercontent.com/40559167/155321123-2b9a790e-e79b-41a1-8df9-1a0233d19c1a.png)
+
+     ![image](https://user-images.githubusercontent.com/40559167/155321074-36570a39-0189-4a75-a368-bef584642ebe.png)
+
+12.  sudo wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz
+
+     ![image](https://user-images.githubusercontent.com/40559167/155322164-3db0ef68-df4a-4343-8505-7c9b4cfe7a4a.png)
+
+13. ![image](https://user-images.githubusercontent.com/40559167/155322249-24b6ab1b-8b35-43cb-ac17-3f4c5b8f2713.png)
+
+
+14. gzip -t /tmp/new/test.gz | echo $?
+    
+    
+     
+
 
 
 
