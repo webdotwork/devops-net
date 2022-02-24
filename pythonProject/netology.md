@@ -461,6 +461,7 @@ sdc                         8:32   0  2.5G  0 disk
   
   5. vagrant@vagrant:~$ traceroute -An 8.8.8.8
 traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+
  1  10.0.2.2 [*]  0.492 ms  0.417 ms  0.372 ms
  2  10.0.40.1 [*]  0.341 ms  0.308 ms  0.294 ms
  3  *.4*.*.1* [AS**5]  0.591 ms  0.607 ms  0.926 ms
@@ -484,6 +485,28 @@ traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
 21  * 8.8.8.8 [AS----]  15.480 ms  14.208 ms
      
   
-6.
+6. mtr -zn 8.8.8.8 большие задежки
+  AS565674  2------------1
+10. (waiting for reply)
+11. (waiting for reply)
+12. (waiting for reply)
+13. (waiting for reply)
+14. (waiting for reply)
+15. (waiting for reply)
+16. (waiting for reply)
+17. (waiting for reply)
+18. (waiting for reply)
+19. AS15169  8.8.8.8
+
+7. dig +trace @8.8.8.8 gmail.com
+
+   gmail.com.              300     IN      A       100.100.103.108
+   
+   dig TXT +short o-o.myaddr.l.google.com @ns1.google.com
+  
+
+8. dig -x 8.8.8.8
+
+![image](https://user-images.githubusercontent.com/40559167/155595530-edffb29a-bb14-4f3d-b06c-ed188bbdca99.png)
 
 
