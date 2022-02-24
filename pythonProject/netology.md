@@ -498,15 +498,15 @@ traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
 18. (waiting for reply)
 19. AS15169  8.8.8.8
 
-7. dig +trace @8.8.8.8 gmail.com
+   7. dig +trace @8.8.8.8 gmail.com
 
    gmail.com.              300     IN      A       100.100.103.108
    
    dig TXT +short o-o.myaddr.l.google.com @ns1.google.com
   
 
-8. dig -x 8.8.8.8
+   8. dig -x 8.8.8.8
 
-![image](https://user-images.githubusercontent.com/40559167/155595530-edffb29a-bb14-4f3d-b06c-ed188bbdca99.png)
+   ![image](https://user-images.githubusercontent.com/40559167/155595530-edffb29a-bb14-4f3d-b06c-ed188bbdca99.png)
 
 
