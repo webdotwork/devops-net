@@ -508,5 +508,16 @@ traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
    8. dig -x 8.8.8.8
 
    ![image](https://user-images.githubusercontent.com/40559167/155595530-edffb29a-bb14-4f3d-b06c-ed188bbdca99.png)
+   
+   
+   Задание 3.6
+   
+   1. ip a
+      ls /sys/class/net
+      cat /proc/net/dev
+      ![image](https://user-images.githubusercontent.com/40559167/155804609-6d7b30a7-d7f1-4022-b922-8a1692ac6f98.png)
+
+   2. ip -4 neighbor show
+      
 
 
