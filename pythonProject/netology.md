@@ -580,12 +580,57 @@ traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
        arp -d * - полная очистка таблицы ARP. Аналогично - arp -d без параметров. Если имеется несколько сетевых интерфейсов, то очистка может быть выполнена только для одного        из них - arp -d * 192.168.0.56.
 
   Задание 3.8
-      telnet route-views.routeviews.org      
-      Username: rviews      
-      show ip route 89.20.43.177
-      ![image](https://user-images.githubusercontent.com/40559167/156033305-dedb7666-75c8-4aa5-8586-d0c7aed4f079.png)
+  
+ 1. telnet route-views.routeviews.org   
       
-      show bgp 89.20.43.177
-      ![image](https://user-images.githubusercontent.com/40559167/156033536-578eabf8-d37d-4544-bceb-02c3fa73c1a6.png)
+   Username: rviews
+   
+   show ip route 89.20.43.177
+   
+   ![image](https://user-images.githubusercontent.com/40559167/156033305-dedb7666-75c8-4aa5-8586-d0c7aed4f079.png)
+      
+   show bgp 89.20.43.177
+   
+   ![image](https://user-images.githubusercontent.com/40559167/156033536-578eabf8-d37d-4544-bceb-02c3fa73c1a6.png)
+   
+  2. sudo modprobe -v dummy numdummies=2
+     
+     lsmod | grep dummy
+     
+     sudo ip addr add 192.168.1.150/24 dev dummy0
+     
+     sudo ip addr add 192.168.2.140/24 dev dummy1
+     
+     ip route add 192.168.2.0/24 dev ens160
+     
+     ip route add 192.168.1.0/24 dev ens160
+     
+     ip route show
+     
+     ![image](https://user-images.githubusercontent.com/40559167/156038227-ae92d073-2d28-4b1f-9cc0-f022b410f2f2.png)
+
+
+  3. sudo netstat -plnut
+     
+     -p Отображает PID.
+     -l Показывает только прослушивающие порты.
+     -n Он покажет нам числовые адреса вместо разрешения хостов.
+     -u Показать порты UDP.
+     -t Показать TCP-порты.
+     
+     ![image](https://user-images.githubusercontent.com/40559167/156039027-3bcb3226-aba0-484f-85c5-c140970e3d4f.png)
+     
+     sudo lsof -nP -iTCP -sTCP:LISTEN
+     
+     ![image](https://user-images.githubusercontent.com/40559167/156039605-2c52ba0e-595f-4666-a475-d98dd2432320.png)
+
+     sudo ss -plnut
+     
+     ![image](https://user-images.githubusercontent.com/40559167/156039705-6391e920-aac5-4ee7-b990-b35f7f853c2c.png)
+
+     протокол ssh занимает порт 22 так же node exporter занимает порт 9100
+     
+   4. 
+   
 
       
