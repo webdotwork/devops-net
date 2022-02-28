@@ -579,4 +579,13 @@ traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
 
        arp -d * - полная очистка таблицы ARP. Аналогично - arp -d без параметров. Если имеется несколько сетевых интерфейсов, то очистка может быть выполнена только для одного        из них - arp -d * 192.168.0.56.
 
-    
+  Задание 3.8
+      telnet route-views.routeviews.org      
+      Username: rviews      
+      show ip route 89.20.43.177
+      ![image](https://user-images.githubusercontent.com/40559167/156033305-dedb7666-75c8-4aa5-8586-d0c7aed4f079.png)
+      
+      show bgp 89.20.43.177
+      ![image](https://user-images.githubusercontent.com/40559167/156033536-578eabf8-d37d-4544-bceb-02c3fa73c1a6.png)
+
+      
