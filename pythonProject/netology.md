@@ -632,11 +632,14 @@ traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
      
    4.  ss -u -a
        
+       демоны sunrpc nfs протокол mdns b bootpc 
+       
        ![image](https://user-images.githubusercontent.com/40559167/156211500-5f736cdd-cdb9-44a2-a24f-df8a0f3d361f.png)
        
-       демоны sunrpc nfs протокол mdns b bootpc 
+       
 
-   5. ![image](https://user-images.githubusercontent.com/40559167/156216463-20dd2e8d-5a83-4244-89fd-5c00d9ce0bc8.png)
+   5.
+       ![image](https://user-images.githubusercontent.com/40559167/156216463-20dd2e8d-5a83-4244-89fd-5c00d9ce0bc8.png)
 
    
 
