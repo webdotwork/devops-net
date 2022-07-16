@@ -1,8 +1,8 @@
 ---
-# ansible.posix.authorized_key:
-#         user: "{{ ansible_user_id }}"
-#         state: present
-#         key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+ansible.posix.authorized_key:
+        user: "{{ ansible_user_id }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
 clickhouse:
   hosts:

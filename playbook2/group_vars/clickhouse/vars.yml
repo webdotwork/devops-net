@@ -1,6 +1,6 @@
 ---
-ansible_user: dvps
-ansible_password: q
+# ansible_user: dvps
+# ansible_password: q
 clickhouse_version: "22.3.3.44"
 clickhouse_packages:
   - clickhouse-client
