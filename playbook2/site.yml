@@ -21,7 +21,7 @@
             dest: "./clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
     - name: Install clickhouse packages
       become: true
-      ansible.builtin.yum:
+      ansible.builtin.apt:
         name:
           - clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm
           - clickhouse-client-{{ clickhouse_version }}.rpm
