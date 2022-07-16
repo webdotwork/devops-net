@@ -7,4 +7,4 @@ ansible.posix.authorized_key:
 clickhouse:
   hosts:
     clickhouse-01:
-      ansible_host: 51.250.106.196
+      ansible_host: 158.160.3.46
