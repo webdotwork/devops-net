@@ -1,4 +1,6 @@
 ---
+ansible_user_id: dvps
+
 clickhouse_version: "22.3.3.44"
 clickhouse_packages:
   - clickhouse-client
