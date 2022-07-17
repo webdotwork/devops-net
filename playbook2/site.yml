@@ -81,7 +81,7 @@
     - name: Create vector service link
       become: true
       ansible.builtin.file:
-        src: /opt/vector/etc/systemd/vector.service
+        src: /opt/vector/vector-x86_64-unknown-linux-gnu/etc/systemd/vector.service
         dest: /etc/systemd/system/vector.service
         state: link
 
