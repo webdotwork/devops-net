@@ -8,31 +8,34 @@
             url: "https://packages.clickhouse.com/deb/pool/stable/{{ item }}_{{ clickhouse_version }}_all.deb"
             dest: "/tmp/{{ item }}_{{ clickhouse_version }}.deb"
           with_items: "{{ clickhouse_packages }}"
+          
       rescue:
         - name: Get clickhouse distrib static
           ansible.builtin.get_url:
             url: "https://packages.clickhouse.com/deb/pool/stable/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb"
             dest: "/tmp/clickhouse-common-static_{{ clickhouse_version }}.deb"
+
     - name: Install clickhouse clickhouse-common-static
       become: true
       ansible.builtin.apt:
         deb: "/tmp/clickhouse-common-static_{{ clickhouse_version }}.deb"
+
     - name: Install clickhouse clickhouse-client
       become: true
       ansible.builtin.apt:
         deb: "/tmp/clickhouse-client_{{ clickhouse_version }}.deb"
+
     - name: Install clickhouse clickhouse-server
       become: true
       ansible.builtin.apt:
         deb: "/tmp/clickhouse-server_{{ clickhouse_version }}.deb"
+
     - name: Start clickhouse service
       become: true
       ansible.builtin.service:
         name: clickhouse-server
         state: started
-    # - name: Sleep for 10 seconds and continue with play
-    #   ansible.builtin.wait_for:
-    #     timeout: 10
+  
     - name: Create database
       ansible.builtin.command: "clickhouse-client -q 'CREATE DATABASE IF NOT EXISTS logs;'"
       register: create_db
