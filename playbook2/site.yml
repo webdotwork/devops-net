@@ -51,39 +51,43 @@
       ansible.builtin.get_url:
         url: https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-x86_64-unknown-linux-gnu.tar.gz
         dest: "/tmp/vector_{{ vector_version }}.tar.gz"
+
     - name: mkdir for vector
       ansible.builtin.file:
         path: /opt/vector
         state: directory
+
     - name: Extract vector archive
       become: true
       ansible.builtin.unarchive:
         src: /tmp/vector_{{ vector_version }}.tar.gz
         dest: /opt/vector
         remote_src: yes
-        extra_opts: "--strip-components=2"
-        group: root
-        owner: root
+        
     - name: Create vector bin link
       ansible.builtin.file:
         src: /opt/vector/bin/vector
         dest: /usr/bin/vector
         state: link
+
     - name: Create vector user
       ansible.builtin.user:
         name: vector
         shell: /bin/bash
+
     - name: Create vector service link
       ansible.builtin.file:
         src: /opt/vector/etc/systemd/vector.service
         dest: /etc/systemd/system/vector.service
         state: link
-    - name: Create vector var folder
-      ansible.builtin.file:
-        path: /var/lib/vector
-        state: directory
-        owner: vector
-        group: vector
+
+    # - name: Create vector var folder
+    #   ansible.builtin.file:
+    #     path: /var/lib/vector
+    #     state: directory
+    #     owner: vector
+    #     group: vector
+
     - name: Create vector config folder
       ansible.builtin.file:
         path: /etc/vector
