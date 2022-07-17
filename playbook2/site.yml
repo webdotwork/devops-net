@@ -46,6 +46,9 @@
       ansible.builtin.file: 
         path: /opt/vector
         state: directory
+    - name: Install gzip
+      ansible.builtin.apt:
+        name: gzip
 
     - name: Extract Vector arch
       ansible.builtin.unarchive:
