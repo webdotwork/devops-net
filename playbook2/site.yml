@@ -47,14 +47,14 @@
         path: /opt/vector
         state: directory
         
-    - name: Install gzip
-      become: true
-      ansible.builtin.apt:
-        name: unzip
+    # - name: Install gzip
+    #   become: true
+    #   ansible.builtin.apt:
+    #     name: unzip
 
     - name: Extract Vector arch
       ansible.builtin.unarchive:
-        src: ./vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
+        src: /home/ans/vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
         dest: /opt/vector
         remote_src: true
     - name: Install Vector
