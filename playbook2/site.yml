@@ -1,94 +1,97 @@
 ---
-# - name: Install Clickhouse
-#   hosts: clickhouse
-#   handlers:
-#     - name: Start clickhouse service
-#       become: true
-#       ansible.builtin.service:
-#         name: clickhouse-server
-#         state: restarted
-#   tasks:
-#     - block:
-#         - name: Get clickhouse distrib
-#           ansible.builtin.get_url:
-#             url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
-#             dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
-#           with_items: "{{ clickhouse_packages }}"
-#       rescue:
-#         - name: Get clickhouse distrib
-#           ansible.builtin.get_url:
-#             url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
-#             dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
-#     - name: Install clickhouse packages
-#       become: true
-#       ansible.builtin.yum:
-#         name:
-#           - clickhouse-common-static-{{ clickhouse_version }}.rpm
-#           - clickhouse-client-{{ clickhouse_version }}.rpm
-#           - clickhouse-server-{{ clickhouse_version }}.rpm
-#       notify: Start clickhouse service
-#     - name: Create database
-#       ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
-#       register: create_db
-#       failed_when: create_db.rc != 0 and create_db.rc !=82
-#       changed_when: create_db.rc == 0
-
-
-- name: Vector
-  hosts: vector
+- name: Install Clickhouse
+  hosts: clickhouse
   tasks:
-    - name: Download Vector arch
-      ansible.builtin.get_url:
-        url: https://packages.timber.io/vector/0.23.0/vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
-        dest: ./vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
-
-    - name: Dir for Vector arch
+    - block:
+        - name: Get clickhouse distrib
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/deb/pool/stable/{{ item }}_{{ clickhouse_version }}_all.deb"
+            dest: "/tmp/{{ item }}_{{ clickhouse_version }}.deb"
+          with_items: "{{ clickhouse_packages }}"
+      rescue:
+        - name: Get clickhouse distrib static
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/deb/pool/stable/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb"
+            dest: "/tmp/clickhouse-common-static_{{ clickhouse_version }}.deb"
+    - name: Install clickhouse clickhouse-common-static
       become: true
-      ansible.builtin.file: 
+      ansible.builtin.apt:
+        deb: "/tmp/clickhouse-common-static_{{ clickhouse_version }}.deb"
+    - name: Install clickhouse clickhouse-client
+      become: true
+      ansible.builtin.apt:
+        deb: "/tmp/clickhouse-client_{{ clickhouse_version }}.deb"
+    - name: Install clickhouse clickhouse-server
+      become: true
+      ansible.builtin.apt:
+        deb: "/tmp/clickhouse-server_{{ clickhouse_version }}.deb"
+    - name: Start clickhouse service
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: started
+    - name: Sleep for 10 seconds and continue with play
+      ansible.builtin.wait_for:
+        timeout: 10
+    - name: Create database
+      ansible.builtin.command: "clickhouse-client -q 'CREATE DATABASE IF NOT EXISTS logs;'"
+      register: create_db
+      failed_when: create_db.rc != 0
+      changed_when: create_db.rc == 0
+    - name: Create table
+      ansible.builtin.command: "clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.journald (message String) ENGINE = MergeTree() ORDER BY tuple();'"
+      register: create_table
+      failed_when: create_db.rc != 0
+      changed_when: create_db.rc == 0
+
+- name: Install Vector
+  hosts: clickhouse
+  tasks:
+    - name: Get vector distrib
+      ansible.builtin.get_url:
+        url: https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-x86_64-unknown-linux-gnu.tar.gz
+        dest: "/tmp/vector_{{ vector_version }}.tar.gz"
+    - name: mkdir for vector
+      ansible.builtin.file:
         path: /opt/vector
         state: directory
-
-    - name: Extract Vector arch
-      become: true
+    - name: Extract vector archive
       ansible.builtin.unarchive:
-        src: /home/ans/vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
+        src: /tmp/vector_{{ vector_version }}.tar.gz
         dest: /opt/vector
-        remote_src: true
-
+        remote_src: yes
+        extra_opts: "--strip-components=2"
+        group: root
+        owner: root
     - name: Create vector bin link
-      become: true
       ansible.builtin.file:
-        src: /opt/vector/vector-x86_64-unknown-linux-gnu/bin
+        src: /opt/vector/bin/vector
         dest: /usr/bin/vector
         state: link
-
-    - name: Create vector service link
-      become: true
-      ansible.builtin.file:
-        src: /opt/vector/vector-x86_64-unknown-linux-gnu/etc/systemd/vector.service
-        dest: /etc/systemd/system/vector.service
-        state: link
-
     - name: Create vector user
-      become: true
       ansible.builtin.user:
         name: vector
         shell: /bin/bash
-
+    - name: Create vector service link
+      ansible.builtin.file:
+        src: /opt/vector/etc/systemd/vector.service
+        dest: /etc/systemd/system/vector.service
+        state: link
+    - name: Create vector var folder
+      ansible.builtin.file:
+        path: /var/lib/vector
+        state: directory
+        owner: vector
+        group: vector
     - name: Create vector config folder
-      become: true
       ansible.builtin.file:
         path: /etc/vector
         state: directory
-
     - name: Create vector config file
-      become: true
       ansible.builtin.copy:
-        src: vector.toml
+        src: files/vector.toml
         dest: /etc/vector/vector.toml
-
     - name: Start vector service
-      become: true
       ansible.builtin.systemd:
         state: started
         name: vector
