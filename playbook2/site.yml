@@ -47,6 +47,9 @@
       ansible.builtin.file: 
         path: /opt/vector
         state: directory
+        owner: ans
+        group: ans
+        mode: '0666'
         
     # - name: Install gzip
     #   become: true
@@ -66,7 +69,7 @@
         src: /opt/vector/vector-x86_64-unknown-linux-gnu/bin
         dest: /usr/bin/vector
         state: link
-        
+
     - name: mv vector bin
       become: true
       ansible.builtin.command:
