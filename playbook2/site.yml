@@ -75,5 +75,5 @@
     - name: Install Vector
       become: true
       ansible.builtin.command:
-        vector --config config/vector.toml
+        vector
       
