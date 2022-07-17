@@ -83,6 +83,7 @@
     #   ansible.builtin.command:
     #     vector
     - name: Create vector config folder
+      become: true
       ansible.builtin.file:
         path: /etc/vector
         state: directory
