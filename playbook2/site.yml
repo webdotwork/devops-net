@@ -68,6 +68,11 @@
         src: /opt/vector/vector-x86_64-unknown-linux-gnu/etc/systemd/vector.service
         dest: /etc/systemd/system/vector.service
         state: link
+        
+    - name: Create vector user
+      ansible.builtin.user:
+        name: vector
+        shell: /bin/bash
 
     - name: Create vector config folder
       become: true
