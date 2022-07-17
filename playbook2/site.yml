@@ -100,7 +100,7 @@
 
     - name: Create vector config file
       ansible.builtin.copy:
-        src: files/vector.toml
+        src: vector.toml
         dest: /etc/vector/vector.toml
 
     - name: Start vector service
