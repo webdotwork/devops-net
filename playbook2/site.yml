@@ -67,13 +67,13 @@
       become: true
       ansible.builtin.file:
         src: /opt/vector/vector-x86_64-unknown-linux-gnu/bin
-        dest: /usr/bin/vector
+        dest: /usr/bin/
         state: link
 
-    - name: mv vector bin
-      become: true
-      ansible.builtin.command:
-        mv /usr/bin/vector /usr/bin
+    # - name: mv vector bin
+    #   become: true
+    #   ansible.builtin.command:
+    #     mv /usr/bin/vector /usr/bin
 
     - name: Install Vector
       become: true
