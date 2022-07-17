@@ -53,6 +53,7 @@
     #     name: unzip
 
     - name: Extract Vector arch
+      become: true
       ansible.builtin.unarchive:
         src: /home/ans/vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
         dest: /opt/vector
