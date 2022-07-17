@@ -34,12 +34,25 @@
 #       changed_when: create_db.rc == 0
 
 
-- name: get vector arch
+- name: Vector
   hosts: vector
-  handlers:
-    - name: download arch
+  tasks:
+    - name: Download Vector arch
       ansible.builtin.get_url:
-        url: "https://packages.timber.io/vector/0.23.0/vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz"
-        dest: "./vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz"
+        url: https://packages.timber.io/vector/0.23.0/vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
+        dest: ./vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
+    - name: Dir for Vector arch
+      ansible.builtin.file: 
+        path: /opt/vector
+        file: directory
+    - name: Extract Vector arch
+      ansible.builtin.unarchive:
+        src: ./vector-0.23.0-x86_64-unknown-linux-gnu.tar.gz
+        dest: /opt/vector
+    - name: Install Vector
+      ansible.builtin.command:
+        args:
+          chdir: /opt/vector
+          cmd: vector --config config/vector.toml
 
       
