@@ -66,17 +66,20 @@
         remote_src: yes
         
     - name: Create vector bin link
+      become: true
       ansible.builtin.file:
         src: /opt/vector/vector-x86_64-unknown-linux-gnu/bin
         dest: /usr/bin/vector
         state: link
 
     - name: Create vector user
+      become: true
       ansible.builtin.user:
         name: vector
         shell: /bin/bash
 
     - name: Create vector service link
+      become: true
       ansible.builtin.file:
         src: /opt/vector/etc/systemd/vector.service
         dest: /etc/systemd/system/vector.service
@@ -90,6 +93,7 @@
     #     group: vector
 
     - name: Create vector config folder
+      become: true
       ansible.builtin.file:
         path: /etc/vector
         state: directory
