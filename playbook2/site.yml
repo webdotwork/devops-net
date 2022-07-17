@@ -46,6 +46,7 @@
       ansible.builtin.file: 
         path: /opt/vector
         state: directory
+        remote_src: yes
 
     - name: Extract Vector arch
       ansible.builtin.unarchive:
