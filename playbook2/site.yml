@@ -74,7 +74,7 @@
     #     mv /usr/bin/vector /usr/bin
     - name: Create vector service link
       ansible.builtin.file:
-        src: /opt/vector/etc/systemd/vector.service
+        src: /opt/vector/vector-x86_64-unknown-linux-gnu/etc/systemd/vector.service
         dest: /etc/systemd/system/vector.service
         state: link
     # - name: Install Vector
@@ -85,10 +85,12 @@
       ansible.builtin.file:
         path: /etc/vector
         state: directory
+
     - name: Create vector config file
       ansible.builtin.copy:
         src: files/vector.toml
         dest: /etc/vector/vector.toml
+
     - name: Start vector service
       ansible.builtin.systemd:
         state: started
