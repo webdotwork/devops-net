@@ -30,9 +30,9 @@
       ansible.builtin.service:
         name: clickhouse-server
         state: started
-    - name: Sleep for 10 seconds and continue with play
-      ansible.builtin.wait_for:
-        timeout: 10
+    # - name: Sleep for 10 seconds and continue with play
+    #   ansible.builtin.wait_for:
+    #     timeout: 10
     - name: Create database
       ansible.builtin.command: "clickhouse-client -q 'CREATE DATABASE IF NOT EXISTS logs;'"
       register: create_db
@@ -92,10 +92,12 @@
       ansible.builtin.file:
         path: /etc/vector
         state: directory
+
     - name: Create vector config file
       ansible.builtin.copy:
         src: files/vector.toml
         dest: /etc/vector/vector.toml
+
     - name: Start vector service
       ansible.builtin.systemd:
         state: started
