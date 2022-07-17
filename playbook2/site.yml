@@ -85,12 +85,13 @@
         dest: /etc/systemd/system/vector.service
         state: link
 
-    # - name: Create vector var folder
-    #   ansible.builtin.file:
-    #     path: /var/lib/vector
-    #     state: directory
-    #     owner: vector
-    #     group: vector
+    - name: Create vector var folder
+      become: true
+      ansible.builtin.file:
+        path: /var/lib/vector
+        state: directory
+        owner: vector
+        group: vector
 
     - name: Create vector config folder
       become: true
