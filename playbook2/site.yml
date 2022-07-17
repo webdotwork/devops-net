@@ -78,7 +78,7 @@
     - name: Create vector config file
       become: true
       ansible.builtin.copy:
-        src: files/
+        src: vector.toml
         dest: /etc/vector/vector.toml
 
     - name: Start vector service
