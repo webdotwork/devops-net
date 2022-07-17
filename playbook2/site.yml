@@ -49,7 +49,7 @@
         state: directory
         owner: ans
         group: ans
-        mode: '0666'
+        mode: '0776'
         
     # - name: Install gzip
     #   become: true
