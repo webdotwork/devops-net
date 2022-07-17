@@ -60,17 +60,16 @@
         dest: /opt/vector
         remote_src: true
 
+    - name: Create vector bin link
+      become: true
+      ansible.builtin.file:
+        src: /opt/vector/vector-x86_64-unknown-linux-gnu/bin
+        dest: /usr/bin/vector
+        state: link
     - name: mv vector bin
       become: true
       ansible.builtin.command:
-        mv /opt/vector/vector-x86_64-unknown-linux-gnu/bin /usr/bin
-
-    # - name: Create vector bin link
-    #   become: true
-    #   ansible.builtin.file:
-    #     src: /opt/vector/vector-x86_64-unknown-linux-gnu/bin
-    #     dest: /usr/bin/vector
-    #     state: link
+        mv /usr/bin/vector /usr/bin
 
     - name: Install Vector
       become: true
