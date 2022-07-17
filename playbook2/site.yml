@@ -53,6 +53,7 @@
         dest: "/tmp/vector_{{ vector_version }}.tar.gz"
 
     - name: mkdir for vector
+      become: true
       ansible.builtin.file:
         path: /opt/vector
         state: directory
