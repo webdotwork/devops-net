@@ -66,6 +66,7 @@
         src: /opt/vector/vector-x86_64-unknown-linux-gnu/bin
         dest: /usr/bin/vector
         state: link
+        
     - name: mv vector bin
       become: true
       ansible.builtin.command:
