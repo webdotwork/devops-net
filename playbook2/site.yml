@@ -88,10 +88,10 @@
         path: /etc/vector
         state: directory
 
-    - name: Create vector config file
-      ansible.builtin.copy:
-        src: files/vector.toml
-        dest: /etc/vector/vector.toml
+    # - name: Create vector config file
+    #   ansible.builtin.copy:
+    #     src: files/vector.toml
+    #     dest: /etc/vector/vector.toml
 
     - name: Start vector service
       become: true
