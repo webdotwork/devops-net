@@ -61,5 +61,7 @@
 
     - name: Install Vector
       ansible.builtin.command:
-        vector --config config/vector.toml
+        args:
+          chdir: /opt/vector/vector-x86_64-unknown-linux-gnu/bin
+          executable: vector
       
