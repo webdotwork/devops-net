@@ -99,6 +99,7 @@
         state: directory
 
     - name: Create vector config file
+      become: true
       ansible.builtin.copy:
         src: vector.toml
         dest: /etc/vector/vector.toml
