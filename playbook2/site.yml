@@ -97,4 +97,4 @@
       ansible.builtin.systemd:
         state: started
         name: vector
-        daemon_reload: yes
+        # daemon_reload: yes
