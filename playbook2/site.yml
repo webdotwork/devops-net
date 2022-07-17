@@ -56,6 +56,7 @@
         path: /opt/vector
         state: directory
     - name: Extract vector archive
+      become: true
       ansible.builtin.unarchive:
         src: /tmp/vector_{{ vector_version }}.tar.gz
         dest: /opt/vector
@@ -96,3 +97,4 @@
         state: started
         name: vector
         daemon_reload: yes
+        
