@@ -78,7 +78,7 @@
     - name: Create vector config file
       become: true
       ansible.builtin.copy:
-        src: ./files/vector.toml
+        src: /files/vector.toml
         dest: /etc/vector/vector.toml
         remote_src: no
 
