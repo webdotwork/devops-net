@@ -7,18 +7,22 @@
       ansible.builtin.service:
         name: clickhouse-server
         state: restarted
+        enabled: true
   tasks:
-    - block:
+    - name: Get clickhouse distrib block with rescue
+      block:
         - name: Get clickhouse distrib
           ansible.builtin.get_url:
             url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
             dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
+            mode: '0666'
           with_items: "{{ clickhouse_packages }}"
       rescue:
         - name: Get clickhouse distrib
           ansible.builtin.get_url:
             url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
             dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
+            mode: '0666'
     - name: Install clickhouse packages
       become: true
       ansible.builtin.yum:
@@ -27,36 +31,37 @@
           - clickhouse-client-{{ clickhouse_version }}.rpm
           - clickhouse-server-{{ clickhouse_version }}.rpm
       notify: Start clickhouse service
+  post_tasks:
+    - name: Database startup pause
+      ansible.builtin.pause:
+        seconds: 20
     - name: Create database
       ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
       register: create_db
       failed_when: create_db.rc != 0 and create_db.rc !=82
       changed_when: create_db.rc == 0
-      
+
 - name: Install Vector
-  hosts: vector
+  hosts: clickhouse
   tasks:
-    - name: Download distrib vector
+    - name: Get Vector setup script
       ansible.builtin.get_url:
-        url: "https://packages.timber.io/vector/0.23.0/vector-{{ vector_version }}-x86_64-unknown-linux-gnu.tar.gz"
-        dest: "./vector-{{ vector_version }}-x86_64-unknown-linux-gnu.tar.gz"
-        
-    - name: Create directrory for vector
+        url: "https://repositories.timber.io/public/vector/cfg/setup/bash.rpm.sh"
+        dest: "/tmp/bash.rpm.sh"
+        mode: '0777'
+    - name: Run Vector setup script
       become: true
-      ansible.builtin.file:
-        state: directory
-        path: "{{ vector_home }}"
-      tags: vector_dir  
-    - name: Unarchive
+      ansible.builtin.command:
+        cmd: "/tmp/bash.rpm.sh"
+      changed_when: true
+    - name: Yum install Vector
       become: true
-      ansible.builtin.unarchive:
-          src: "/home/ans/vector-{{ vector_version }}-x86_64-unknown-linux-gnu.tar.gz"
-          dest: "/opt/vector/-{{ vector_version }}"
-          remote_src: yes
-          
-      tags: vector
-    - name: Template it
-      template:
-        src: "template/vector.cfg.j2"
-        dest: "/opt/vector/-{{ vector_version }}"
-        backup: true
+      ansible.builtin.yum:
+        name: vector-{{ vector_version }}
+        state: installed
+    - name: Start Vector
+      become: true
+      ansible.builtin.service:
+        name: vector
+        state: started
+        enabled: true
