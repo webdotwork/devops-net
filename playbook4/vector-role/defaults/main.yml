@@ -1,0 +1,6 @@
+---
+# defaults file for vector-role
+vector:
+  hosts:
+    vector-01:
+      ansible_host: 51.250.19.19

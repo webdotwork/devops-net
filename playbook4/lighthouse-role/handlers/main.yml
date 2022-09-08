@@ -1,0 +1,11 @@
+---
+# handlers file for lighthouse-role
+- name: Install lighthouse
+  handlers:
+  - name: start-nginx
+    become: true
+    command: nginx
+  - name: reload-nginx
+    become: true
+    command: nginx -s reload
+  hosts: lighthouse

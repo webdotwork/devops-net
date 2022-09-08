@@ -1,0 +1,7 @@
+---
+# defaults file for lighthouse-role
+---
+lighthouse:
+  hosts:
+    lighthouse-01:
+      ansible_host: 158.160.5.138
