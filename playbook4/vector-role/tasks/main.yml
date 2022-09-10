@@ -1,29 +1,7 @@
 ---
-# tasks file for vector-role
-#- name: Get Vector setup script
-#  ansible.builtin.get_url:
-#    url: "https://repositories.timber.io/public/vector/cfg/setup/bash.rpm.sh"
-#    dest: "/tmp/bash.rpm.sh"
-#    mode: '0777'
-#- name: Run Vector setup script
-#  become: true
-#  ansible.builtin.command:
-#    cmd: "/tmp/bash.rpm.sh"
-#  changed_when: true
-#- name: Yum install Vector
-#  become: true
-#  ansible.builtin.yum:
-#    name: vector-0.22.3
-#    #{{ vector_version }}
-#    state: installed
-#- name: Start Vector
-#  become: true
-#  ansible.builtin.service:
-#    name: vector
-#    state: started
-#    enabled: true
 
-- name: Download distrib vector
+# tasks file for vector-role
+- name: Download distrib vector deb
   become: true
   get_url:
     url: "https://packages.timber.io/vector/{{ vector_version }}/vector_{{ vector_version }}-1_amd64.deb"
@@ -33,11 +11,15 @@
   run_once: True
   register: get_vector
   until: get_vector is succeeded
+
+#
 - name: Install vector deb
   become: true
   ansible.builtin.apt:
     deb: "/tmp/vector-{{ vector_version }}.deb"
     dpkg_options: 'force-confold,force-confdef'
+
+#
 - name: Template it
   become: true
   ansible.builtin.template:
