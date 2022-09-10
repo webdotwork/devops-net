@@ -9,10 +9,14 @@
     roles: 
       - clickhouse
 
-  - name: Install lighthouse
+  - name: Install nginx
     hosts: lighthouse
     roles:
         - nginx-role
+
+  - name: Install lighthouse
+    hosts: lighthouse
+    roles:
         - lighthouse
 
   
