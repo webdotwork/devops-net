@@ -1,6 +1,6 @@
 ---
-
 # tasks file for vector-role
+
 - name: Download distrib vector
   become: true
   get_url:
@@ -12,14 +12,12 @@
   register: get_vector
   until: get_vector is succeeded
 
-#
 - name: Install vector deb
   become: true
   ansible.builtin.apt:
     deb: "/tmp/vector-{{ vector_version }}.deb"
     dpkg_options: 'force-confold,force-confdef'
-
-#
+    
 - name: Template it
   become: true
   ansible.builtin.template:

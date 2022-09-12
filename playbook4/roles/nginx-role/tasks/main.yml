@@ -1,21 +1,18 @@
 ---
-
-# Installing EPEL repository on a CentOS Linux and RHEL 7. x
+# tasks file for nginx-role
 - name: Install epel-release
   become: true
   ansible.builtin.yum:
     name: epel-release.noarch
     state: latest
 
-#Installing nginx on a CentOS Linux
 - name: Install NGINX
   become: true
   ansible.builtin.yum:
     name: nginx
     state: present
   notify: start-nginx
-
-# copy general config NGINX
+  
 - name: Create general config NGINX
   become: true
   template:
@@ -23,4 +20,4 @@
     dest: "/etc/nginx/nginx.conf"
     mode: 0755
   #notify: reload-nginx
-  tags: install nginx
+  #tags: install nginx
