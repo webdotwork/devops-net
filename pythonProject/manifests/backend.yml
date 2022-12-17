@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - image: webdotwork/backend
+          # volumeMounts:
+          #   - name: backend-vol
+          #     mountPath: /data
+          imagePullPolicy: IfNotPresent
+          name: backend
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          ports:
+          - containerPort: 2020
+      # volumes:
+      #     - name: backend-vol
+      #       emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  type: NodePort
+  ports:
+  - port: 2020
+    nodePort: 32030
+  selector:
+    app: backend
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: backend-disk
+spec:
+  storageClassName: "nfs"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
